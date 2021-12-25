@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+    </head>
+    <body>
+       Type Your Phone Number To Login?<br>
+       <form method="POST">
+        {% csrf_token %}
+        <input id="room-name-input" name="phone_no" type="text" size="100" required><br>
+        <input id="room-name-submit" type="button" value="Next"><br>
+    </form>
+        <!-- <script>
+            document.querySelector('#room-name-input').focus();
+            document.querySelector('#room-name-input').onkeyup = function(e){
+                if(e.keyCode === 13){
+                    document.querySelector('#room-name-submit').click();
+                };
+            }
+
+            document.querySelector('#room-name-submit').onclick = function(e){
+               var roomName = document.querySelector('#room-name-input').value;
+               window.location.pathname = '/chat/' + roomName + '/'
+            }
+        </script> -->
+    </body>
+</html>

@@ -19,7 +19,7 @@ def Messages(request, my_id, other_user_id, chat_no):
     messages = Message.objects.filter(
         (Q(sender=my_id) & Q(reciever=other_user_id)) | (Q(sender=other_user_id) & Q(reciever=my_id)))
     me = User.objects.get(pk=my_id)
-    print(me.username);
+    # print(me.username);
     results = []
     for m in messages:
         user = User.objects.get(pk=m.sender)
@@ -39,6 +39,7 @@ def Messages(request, my_id, other_user_id, chat_no):
 def Chats(request, user_id):
     helper = Helper()
     results = []
+    me = User.objects.get(pk=user_id)
     chats = Chat.objects.filter(Q(owner=user_id) | Q(other_user=user_id))
     for chat in chats:
         owner = chat.owner
@@ -53,7 +54,9 @@ def Chats(request, user_id):
         user = User.objects.get(pk=otheruserid)
         results.append({
             "user": user,
-            "chat_url": chat_url})
+            "chat_url": chat_url
+            })
     return render(request, 'chat/chats.html', {
-        'chats': results
+        'chats': results,
+        "user": me
     })

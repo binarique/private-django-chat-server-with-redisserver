@@ -18,6 +18,8 @@ def index(request):
 def Messages(request, my_id, other_user_id, chat_no):
     messages = Message.objects.filter(
         (Q(sender=my_id) & Q(reciever=other_user_id)) | (Q(sender=other_user_id) & Q(reciever=my_id)))
+    me = User.objects.get(pk=my_id)
+    print(me.username);
     results = []
     for m in messages:
         user = User.objects.get(pk=m.sender)
@@ -28,6 +30,7 @@ def Messages(request, my_id, other_user_id, chat_no):
     return render(request, 'chat/messages.html', {
         'my_id': my_id,
         'other_user_id': other_user_id,
+        "user": me,
         'chat_no': chat_no,
         'messages': results
     })
